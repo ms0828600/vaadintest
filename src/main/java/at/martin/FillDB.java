@@ -21,7 +21,7 @@ public class FillDB {
 		for (int i = 0; i < 10; i++) {
 			Person p = new Person();
 			p.setFirstName(firstNames[i]);
-			p.setFirstName(familyNames[i]);
+			p.setFamilyName(familyNames[i]);
 			list.add(p);
 		}
 		return list;
