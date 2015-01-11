@@ -1,5 +1,9 @@
 package at.martin;
 
+import java.util.List;
+
+import javax.persistence.EntityManager;
+
 import at.martin.entity.Person;
 
 import com.vaadin.Application;
@@ -18,14 +22,15 @@ public class MyVaadinApplication extends Application {
 	@Override
 	public void init() {
 		
-		DBConnector connector = new DBConnector();
-		Person p = new Person();
-		p.setFirstName("Martin");
-		p.setFamilyName("Schliefellner");
-		
-		connector.getEntityManager().getTransaction().begin();
-		connector.getEntityManager().persist(p);
-		connector.getEntityManager().getTransaction().commit();
+		// fill db with persons
+		EntityManager em = DBConnector.getInstance();
+		List<Person> list = FillDB.generatePersons();
+		System.out.println("SIZE = " + list.size());
+		em.getTransaction().begin();
+		for (Person p : list) {
+			em.persist(p);
+		}
+		em.getTransaction().commit();
 		
 		
 		window = new Window("My Vaadin Application");

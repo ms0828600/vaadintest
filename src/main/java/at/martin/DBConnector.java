@@ -6,15 +6,16 @@ import javax.persistence.Persistence;
 
 public class DBConnector {
 
-	private EntityManager entityManager;
+	private static EntityManager entityManager = null;
 	
-	public DBConnector() {
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("customManager");
-		this.entityManager = entityManagerFactory.createEntityManager();
-	}
+	private DBConnector() { }
 	
-	public EntityManager getEntityManager() {
-		return this.entityManager;
+	public static EntityManager getInstance() {
+		if (entityManager == null) {
+			EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("customManager");
+			entityManager = entityManagerFactory.createEntityManager();
+		}
+		return entityManager;
 	}
 	
 }
